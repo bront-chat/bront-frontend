@@ -1,44 +1,95 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Hello bront
 
-## Available Scripts
+> can I get a huh yeahhh?
 
-In the project directory, you can run:
+## Built with
 
-### `yarn start`
+- React
+- Typescript
+- Docker
+- ESLint, Prettier, Airbnb JS Style Guide
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Configure VS Code for ESLint
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Add this to your VS Code `settings.json` file
 
-### `yarn test`
+```
+ "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact"
+    ],
+    "[javascriptreact]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true,
+        }
+    },
+    "editor.formatOnSave": true,
+    "[typescript]": {
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true,
+        }
+    },
+    "[typescriptreact]": {
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.eslint": true,
+        }
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always"
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Building project onto Docker Hub
 
-### `yarn build`
+## Building locally
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Install docker from [these instructions](https://docs.docker.com/get-docker/)
+To validate run
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+$ docker version
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+and you should see something like
 
-### `yarn eject`
+```
+Docker version 19.03.8, build afacb8b
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Make sure you are in the home directory of this repo and build the project using the Dockerfile:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+$ docker build . --tag brontchat:v0.0.1
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This command looks at the current directory `.` and finds the Dockerfile to create an image named `brontchat` with the tag `v0.0.1`
+Now let's look at all of your images and you should see it below:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+$ docker images
+```
 
-## Learn More
+## Push the image to Docker Hub
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Make sure you make an account at [Docker Hub](https://hub.docker.com/)
+Login using your Docker Hub credentials
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+$ docker login
+```
+
+Re-tag your image with your Docker Hub username:
+
+```
+$ docker tag brontchat:v0.0.1 <USERNAME>/brontchat:v0.0.1
+```
+
+Push it to Docker Hub:
+
+```
+$ docker push <USERNAME>/brontchat:v0.0.1
+```
+
+You should be able to see it in your Docker Hub repository online: https://hub.docker.com/

@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import 'antd/dist/antd.css';
+
+import ConversationDetails from './components/conversation-details/ConversationDetails';
+import { Conversation } from './App.types';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const conversation: Conversation = {
+    messages: [
+      {
+        id: 1,
+        author: 'Goku',
+        text: "awooooooooo where's the beef lmao",
+      },
+    ],
+  };
+  return <ConversationDetails conversation={conversation} />;
 }
 
 export default App;
